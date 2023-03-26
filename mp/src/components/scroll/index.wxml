@@ -1,0 +1,24 @@
+<view class="comp myclass">
+  <scroll-view
+    class="scroll"
+    scroll-y
+    enable-back-to-top
+    scroll-with-animation
+    scroll-into-view="{{scrollIntoView}}"
+    bindscrolltoupper="onScrollToUpper"
+    bindscrolltolower="onScrollToLower"
+  >
+    <view id="scrollUpper"></view>
+
+    <view class="children">
+      <slot></slot>
+    </view>
+
+    <view id="scrollLower">
+      <view class="more">
+        {{hasMore ? '正在加载数据......' : '---- 已经达到底部 ----'}}
+      </view>
+    </view>
+  </scroll-view>
+</view>
+

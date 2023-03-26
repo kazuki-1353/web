@@ -1,0 +1,15 @@
+.wrap {
+  position: relative;
+}
+.cvs {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  pointer-events: none;
+}
+.btn {
+  width: 100%;
+  text-align: center;
+}

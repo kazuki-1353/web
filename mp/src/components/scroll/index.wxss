@@ -1,0 +1,17 @@
+.comp {
+  height: 100%;
+}
+.scroll {
+  height: 100%;
+}
+.more {
+  margin: 10rpx;
+  text-align: center;
+  color: #999;
+}
+
+.children {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

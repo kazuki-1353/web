@@ -1,0 +1,16 @@
+<view class="count-down-bar" wx:if="{{end>0}}">
+	<view class="count-down-tip" wx:if="{{type==='toStart'}}">距开始还剩：</view>
+	<view class="count-down-tip" wx:if="{{type==='toEnd'}}">距结束仅剩：</view>
+
+	<view class="count-down-box">
+		<view class="count-down-num">{{date}}</view>
+		<view class="unit">天</view>
+
+		<view class="count-down-num">{{hour}}</view>
+		<view class="unit">:</view>
+		<view class="count-down-num">{{minute}}</view>
+		<view class="unit">:</view>
+		<view class="count-down-num">{{second}}</view>
+	</view>
+</view>
+

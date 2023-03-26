@@ -1,0 +1,43 @@
+.wrap {
+  background: #fff;
+}
+
+.table {
+  display: table;
+  width: 100%;
+}
+
+.header {
+  display: table-caption;
+  text-align: center;
+  color: #fff;
+  background: #000;
+}
+
+.row {
+  display: table-row;
+}
+
+.cell {
+  display: table-cell;
+  padding: 0 10px;
+  border: 1px solid;
+  vertical-align: middle;
+}
+.key {
+  word-break: keep-all;
+}
+.val {
+  word-break: break-all;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.item {
+  flex: 1;
+  text-align: center;
+}

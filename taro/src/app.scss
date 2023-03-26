@@ -1,0 +1,21 @@
+body,
+page {
+  margin: auto;
+  width: 750px;
+  height: 100%;
+  min-height: 100%;
+  line-height: 1.15;
+
+  font-family: Microsoft YaHei UI;
+  font-size: 28px;
+  color: #949494;
+  background: #f7f7f7;
+}
+
+@import 'normalize.css/normalize.css';
+
+@import 'animate.css/animate.min.css';
+.animate__animated {
+  --animate-duration: 0.5s;
+  animation-fill-mode: none;
+}

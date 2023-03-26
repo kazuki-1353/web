@@ -1,0 +1,110 @@
+/* 装饰线动画 */
+.decoration {
+  background: linear-gradient(90deg, #0cc, #0cc),
+    linear-gradient(90deg, #ff3c41, #fc0, #8500d8);
+  background-size: 100% 3px, 0 3px;
+  background-repeat: no-repeat;
+  background-position: 100% 100%, 0 100%;
+  color: #0cc;
+  transition: 0.5s all;
+
+  &:hover {
+    background-size: 0 3px, 100% 3px;
+    color: #000;
+  }
+}
+
+/* 波浪线动画 */
+.anime-wavy {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  line-height: 1.6;
+
+  &::before {
+    content: '..................................................';
+    color: transparent;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &:hover::before {
+    animation: myWavy 5s infinite linear;
+  }
+}
+@keyframes myWavy {
+  100% {
+    transform: translate(-50%);
+  }
+}
+
+.anime-flash {
+  animation: myFlash 1.5s linear infinite;
+}
+@keyframes myFlash {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.anime-tada {
+  animation: myTada 2s 1s infinite both;
+}
+@keyframes myTada {
+  0% {
+    transform: scaleX(1);
+  }
+  5%,
+  10% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate(-3deg);
+  }
+  15%,
+  25%,
+  35%,
+  45% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+  }
+  20%,
+  30%,
+  40% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+}
+
+.anime-rubber-band {
+  animation: myRubberBand 2s 1s infinite both;
+}
+@keyframes myRubberBand {
+  0% {
+    transform: scaleX(1);
+  }
+  15% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  20% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  25% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  33% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  37% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+}

@@ -1,0 +1,30 @@
+<import src="./we-cropper-2d.wxml" />
+
+<view class="cropper" style="display:{{show?'unset':'none'}};">
+  <view class="cropper-wrapper">
+    <template is="we-cropper" data="{{...cropperOpt}}" />
+
+    <view class="cropper-buttons">
+      <view class="cropper-button" bind:tap="cancel">
+        取消
+      </view>
+
+      <view class="cropper-button" bind:tap="upload">
+        选择图片
+      </view>
+
+      <!-- <view class="cropper-button" bind:tap="removeImage">
+        移除图片
+      </view> -->
+
+      <view
+        class="cropper-button"
+        style="background:{{cropperOpt.boundStyle.color}};"
+        bind:tap="getCropperImage"
+      >
+        确定
+      </view>
+    </view>
+  </view>
+</view>
+

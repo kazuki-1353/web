@@ -1,0 +1,39 @@
+.wrap {
+  background: #fff;
+}
+
+.table {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  color: #fff;
+  background: #000;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell {
+  padding: 0 10px;
+  width: 50%;
+  border: 1px solid;
+}
+.key {
+}
+.val {
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.item {
+  flex: 1;
+  text-align: center;
+}

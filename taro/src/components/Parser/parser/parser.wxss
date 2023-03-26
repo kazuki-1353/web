@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+}
+
+.top {
+  display: inherit;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,93 @@
+.isMask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.5;
+}
+
+.isLogin {
+  position: fixed;
+  padding: 50px 50px;
+  width: 480px;
+  background: #fff;
+  top: 50%;
+  left: 50%;
+ transform: translate(-50%,-50%);
+ border-radius: 10px;
+  z-index: 1001;
+}
+
+.isLoginBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.isLoginBtn .userInfoBtn {
+  background: #fff;
+  width: 100%;
+  height: 68px;
+  line-height: 68px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  font-size: 28px;
+  color: #4bad37;
+  border: 1px solid #4bad37;
+  
+}
+.isLoginBtn .cencelBtn{
+  color: #fff;
+  background-color: rgba(0,0,0,.2);
+  margin-top:20px ;
+  text-align: center;
+  border-radius: 8px;
+  border: none;
+}
+
+.loginTitle {
+  font-size: 34px;
+  font-weight: bold;
+}
+.subTitle{
+  font-size: 20px;
+  color: #999;
+  margin-top: 10px;
+}
+
+.loginshopImg {
+  font-size: 26px;
+  padding: 20px 0px;
+  border-bottom: 1px solid #ececec;
+}
+
+// .loginshopImg>image {
+//   width: 68px;
+//   height: 68px;
+//   border-radius: 50%;
+//   margin-right: 20px;
+// }
+
+.isAgary {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: #666;
+  margin-top: 30px;
+}
+
+.levelLow{
+  text-align: center;
+  margin-top: 20px;
+  font-size: 28px;
+  color: #999;
+}
+
+

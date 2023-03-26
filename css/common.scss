@@ -1,0 +1,117 @@
+.show {
+  position: absolute;
+  visibility: visible;
+  opacity: 1;
+}
+.hide {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.clear::after {
+  content: '';
+  clear: both;
+  display: block;
+  visibility: hidden;
+  height: 0;
+}
+
+/* 定位 */
+@mixin position-center($x: true, $y: true) {
+  position: absolute;
+  margin: auto;
+
+  @if $x {
+    left: 0;
+    right: 0;
+  }
+  @if $y {
+    top: 0;
+    bottom: 0;
+  }
+}
+.position-center {
+  @include position-center(true, true);
+}
+.position-centerX {
+  @include position-center(true, false);
+}
+.position-centerY {
+  @include position-center(false, true);
+}
+
+/* 弹性布局 */
+@mixin flex($justify-content: center) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: center;
+}
+.flex-row {
+  @include flex(flex-start);
+}
+.flex-center {
+  @include flex(center);
+}
+.flex-between {
+  @include flex(space-between);
+}
+
+/* 文本缩略 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.texts-ellipsis {
+  position: relative;
+  overflow: hidden;
+  height: 2.5em;
+  line-height: 1.25;
+
+  &::after {
+    content: '......';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-left: 3em;
+    background: linear-gradient(to right, transparent, #fff 3em, #fff);
+  }
+}
+
+/* 字体渐变色
+
+  @include textGradient(linear-gradient(to top, #f00, #0f0), #00f);
+
+*/
+@mixin textGradient($gradient, $color) {
+  color: $color;
+
+  @supports (background-clip: text) {
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-image: $gradient;
+  }
+}
+
+/* 防止点击子元素冒泡 */
+.stop-propagation {
+  position: relative;
+  pointer-events: none;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+    pointer-events: auto;
+  }
+}

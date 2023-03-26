@@ -1,0 +1,23 @@
+.count-down-bar {
+  display: flex;
+  align-items: center;
+  color: #baafb1;
+  font-size: 24rpx;
+}
+.count-down-box {
+  display: flex;
+  align-items: center;
+}
+.count-down-num {
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx solid rgba(186, 175, 177, 0.5);
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.unit {
+  margin: 0 8rpx;
+  color: rgba(186, 175, 177, 0.5);
+}

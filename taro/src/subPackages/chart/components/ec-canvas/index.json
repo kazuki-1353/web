@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "componentGenerics": {
+    "generic": true
+  },
+  "usingComponents": {
+    "ec-canvas": "./ec-canvas"
+  }
+}

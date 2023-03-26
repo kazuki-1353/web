@@ -1,0 +1,59 @@
+/*postcss-pxtransform disable*/
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cropper {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  overflow-x: hidden;
+  background: #000;
+  user-select: none;
+}
+
+.cropper-wrapper {
+  position: relative;
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+
+  display: flex;
+  height: 100%;
+}
+
+.cropper-buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+}
+
+.cropper-button {
+  padding: 0 12px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  text-align: center;
+  color: #ffffff;
+}

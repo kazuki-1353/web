@@ -1,0 +1,32 @@
+{
+  "window": {
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#fff",
+    "navigationStyle": "default",
+    "enablePullDownRefresh": false
+  },
+
+  "networkTimeout": {
+    "request": 20000
+  },
+
+  "navigateToMiniProgramAppIdList": [""],
+
+  "pages": [
+    "pages/index/index",
+    "pages/temp/index"
+  ],
+
+  "subPackages": [
+    {
+      "root": "subPackages/other",
+      "name": "other",
+      "pages": ["pages/cropper/index"]
+    }
+  ],
+
+  "preloadRule": {}
+}

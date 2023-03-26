@@ -1,0 +1,28 @@
+<view
+  class="list"
+  style="background:{{tabBar.backgroundColor}};"
+  bind:tap="onClick"
+>
+  <block wx:for="{{list}}" wx:key="text">
+    <view
+      class="item"
+      data-index="{{index}}"
+      data-mode="{{item.mode}}"
+    >
+      <image
+        class="icon {{item.text ? '' : 'iconBig'}}"
+        src="{{currentPath === item.pagePath ? item.select : item.icon}}"
+        mode='aspectFit'
+      />
+
+      <view
+        class="text"
+        style="color:{{currentPath === item.pagePath ? tabBar.selectedColor : tabBar.color}};"
+        wx:if="{{item.text}}"
+      >
+        {{item.text}}
+      </view>
+    </view>
+  </block>
+</view>
+

@@ -1,0 +1,99 @@
+$footer: 200px;
+
+.wrap {
+  position: fixed;
+  z-index: 1110;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  margin-bottom: -1000px;
+  opacity: 0;
+  outline: 0;
+  text-align: center;
+  transform: scale(1.185);
+  backface-visibility: hidden;
+  perspective: 2000rpx;
+  background: rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease-in-out 0s;
+  pointer-events: none;
+
+  &::before {
+    content: '\200B';
+    display: inline-block;
+    height: 100%;
+    vertical-align: bottom;
+  }
+}
+
+.show {
+  opacity: 1;
+  transition-duration: 0.3s;
+  transform: scale(1);
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-bottom: 0;
+  pointer-events: auto;
+}
+
+.dialog {
+  position: relative;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 0;
+  background-color: #f8f8f8;
+}
+
+.postersBox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding-bottom: $footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // position: absolute;
+  // width: 600px;
+  // left: 50%;
+  // bottom: 400px;
+  // width: 510px;
+  // height: 680px;
+  // transform: translate(-50%, 0);
+
+  .postersImg {
+    width: 600px;
+  }
+}
+.shareBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: $footer;
+
+  .shareBtn {
+    font-size: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+
+    .shareIcon {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+  }
+}

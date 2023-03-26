@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+view {
+  display: flex;
+  flex-direction: column;
+}
+image {
+  vertical-align: middle;
+}
+
+// button.reset {
+//   display: inline-block;
+//   margin: 0;
+//   padding: 0;
+//   line-height: 1.15;
+//   font-size: 100%;
+//   vertical-align: middle;
+//   color: currentColor;
+//   background: transparent;
+//   appearance: none;
+
+//   &::after {
+//     border: 0;
+//   }
+
+//   &[disabled] {
+//     opacity: 0.3;
+//   }
+// }

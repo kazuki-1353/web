@@ -1,0 +1,367 @@
+/* css3-icons */
+@mixin icon {
+  position: relative;
+  box-sizing: content-box;
+  overflow: hidden;
+
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+
+  border-width: 0;
+  border-style: solid;
+  border-color: currentColor;
+  vertical-align: middle;
+
+  &:before,
+  &:after {
+    content: '';
+
+    position: absolute;
+    box-sizing: content-box;
+    display: block;
+    width: 0;
+    height: 0;
+
+    border-width: 0;
+    border-style: solid;
+    border-color: currentColor;
+  }
+}
+
+/* 首页 */
+.icons__home {
+  @include icon;
+
+  &:before {
+    border-width: 0.5em;
+    border-color: transparent;
+    border-top-width: 0;
+    border-bottom-color: currentColor;
+  }
+  &:after {
+    top: 0.45em;
+    left: 0.15em;
+
+    width: 0.3em;
+    height: 0.3em;
+
+    border-width: 0.2em;
+    border-top-width: 0.25em;
+    border-bottom: 0;
+  }
+}
+
+/* 加号 */
+.icons__plus {
+  @include icon;
+
+  &:before,
+  &:after {
+    border-radius: 0.25em;
+    background-color: currentColor;
+  }
+  &:before {
+    top: 0.4em;
+    width: 1em;
+    height: 0.2em;
+  }
+  &:after {
+    top: 0;
+    left: 0.4em;
+    width: 0.2em;
+    height: 1em;
+  }
+}
+.icons__plus-solid {
+  @include icon;
+  border-radius: 1.25em;
+  background-color: currentColor;
+
+  &:before,
+  &:after {
+    border-radius: 0.25em;
+    background-color: #fff;
+  }
+  &:before {
+    top: 0.425em;
+    left: 0.15em;
+    width: 0.7em;
+    height: 0.15em;
+  }
+  &:after {
+    top: 0.15em;
+    left: 0.425em;
+    width: 0.15em;
+    height: 0.7em;
+  }
+}
+.icons__plus-hollow {
+  @include icon;
+  width: 0.8em;
+  height: 0.8em;
+  border-width: 0.1em;
+  border-radius: 1.25em;
+
+  &:before,
+  &:after {
+    border-radius: 0.25em;
+    background-color: currentColor;
+  }
+  &:before {
+    top: 0.35em;
+    left: 0.1em;
+    width: 0.6em;
+    height: 0.1em;
+  }
+  &:after {
+    top: 0.1em;
+    left: 0.35em;
+    width: 0.1em;
+    height: 0.6em;
+  }
+}
+
+/* 减号 */
+.icons__minus {
+  @include icon;
+
+  &:before {
+    top: 0.4em;
+
+    width: 1em;
+    height: 0.2em;
+    border-radius: 0.25em;
+    background-color: currentColor;
+  }
+}
+.icons__minus-solid {
+  @include icon;
+  border-radius: 1.25em;
+  background-color: currentColor;
+
+  &:before {
+    top: 0.425em;
+    left: 0.15em;
+
+    width: 0.7em;
+    height: 0.15em;
+    border-radius: 0.25em;
+    background-color: #fff;
+  }
+}
+.icons__minus-hollow {
+  @include icon;
+  width: 0.8em;
+  height: 0.8em;
+  border-width: 0.1em;
+  border-radius: 1.25em;
+
+  &:before {
+    top: 0.325em;
+    left: 0.1em;
+
+    height: 0.15em;
+    width: 0.6em;
+
+    border-radius: 0.25em;
+    background-color: currentColor;
+  }
+}
+
+/* 叉号 */
+@mixin cross {
+  &:before {
+    border-radius: 0.25em;
+    transform: rotate(-45deg);
+  }
+  &:after {
+    border-radius: 0.25em;
+    transform: rotate(45deg);
+  }
+}
+.icons__cross {
+  @include icon;
+  @include cross;
+
+  &:before,
+  &:after {
+    top: 0.4em;
+
+    width: 1em;
+    height: 0.2em;
+    background-color: currentColor;
+  }
+}
+.icons__cross-solid {
+  @include icon;
+  @include cross;
+
+  border-radius: 1.25em;
+  background-color: currentColor;
+
+  &:before,
+  &:after {
+    top: 0.425em;
+    left: 0.15em;
+
+    width: 0.7em;
+    height: 0.15em;
+    background-color: #fff;
+  }
+}
+.icons__cross-hollow {
+  @include icon;
+  @include cross;
+
+  width: 0.8em;
+  height: 0.8em;
+  border-width: 0.1em;
+  border-radius: 1.25em;
+
+  &:before,
+  &:after {
+    top: 0.3125em;
+    left: 0.1em;
+
+    width: 0.6em;
+    height: 0.15em;
+    background-color: currentColor;
+  }
+}
+
+/* 箭头 */
+@mixin chevron {
+  &:before {
+    width: 0.5em;
+    height: 0.5em;
+    transform: rotate(-45deg);
+  }
+}
+.icons__chevron-top {
+  @include icon;
+  @include chevron;
+  height: 0.625em;
+
+  &:before {
+    top: 0.175em;
+    left: 0.175em;
+    border-top-width: 0.125em;
+    border-right-width: 0.125em;
+  }
+}
+.icons__chevron-bottom {
+  @include icon;
+  @include chevron;
+  height: 0.625em;
+
+  &:before {
+    bottom: 0.175em;
+    left: 0.175em;
+    border-bottom-width: 0.125em;
+    border-left-width: 0.125em;
+  }
+}
+.icons__chevron-left {
+  @include icon;
+  @include chevron;
+  width: 0.625em;
+
+  &:before {
+    top: 0.175em;
+    left: 0.175em;
+    border-top-width: 0.125em;
+    border-left-width: 0.125em;
+  }
+}
+.icons__chevron-right {
+  @include icon;
+  @include chevron;
+  width: 0.625em;
+
+  &:before {
+    top: 0.175em;
+    right: 0.175em;
+    border-bottom-width: 0.125em;
+    border-right-width: 0.125em;
+  }
+}
+
+/* 三角 */
+@mixin caret {
+  &:before {
+    border-width: 0.5em;
+    border-color: transparent;
+  }
+}
+.icons__caret-top {
+  @include icon;
+  @include caret;
+  height: 0.5em;
+
+  &:before {
+    border-top-width: 0;
+    border-bottom-color: currentColor;
+  }
+}
+.icons__caret-bottom {
+  @include icon;
+  @include caret;
+  height: 0.5em;
+
+  &:before {
+    border-bottom-width: 0;
+    border-top-color: currentColor;
+  }
+}
+.icons__caret-left {
+  @include icon;
+  @include caret;
+  width: 0.5em;
+
+  &:before {
+    border-left-width: 0;
+    border-right-color: currentColor;
+  }
+}
+.icons__caret-right {
+  @include icon;
+  @include caret;
+  width: 0.5em;
+
+  &:before {
+    border-right-width: 0;
+    border-left-color: currentColor;
+  }
+}
+
+/* 加载 */
+.icon-loading {
+  @include icon;
+  animation: icon-loading 1.5s linear infinite;
+
+  &:before {
+    top: 0.1em;
+    left: 0.1em;
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    border-width: 0.1em;
+    border-right-color: transparent;
+  }
+  &:after {
+    top: 0.05em;
+    left: 0.5em;
+    border-width: 0.2em;
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+}
+@keyframes icon-loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

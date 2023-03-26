@@ -1,0 +1,6 @@
+<wxml-to-canvas
+  class="widget"
+  width='{{width}}'
+  height="{{height}}"
+></wxml-to-canvas>
+

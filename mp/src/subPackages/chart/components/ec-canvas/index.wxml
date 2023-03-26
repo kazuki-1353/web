@@ -1,0 +1,7 @@
+<ec-canvas
+  class="mychart-dom"
+  id="mychart-dom"
+  canvas-id="mychart"
+  ec="{{ec}}"
+/>
+

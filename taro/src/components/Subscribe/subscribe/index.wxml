@@ -1,0 +1,9 @@
+<view class="comp myclass">
+  <view wx:if="{{disable && !force}}">
+    <slot name="reject" />
+  </view>
+  <view bindtap="onClick" wx:else>
+    <slot/>
+  </view>
+</view>
+

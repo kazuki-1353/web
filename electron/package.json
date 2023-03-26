@@ -1,0 +1,14 @@
+{
+  "name": "my-electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main",
+  "scripts": {
+    "dev": "electron .",
+    "start": "electron ."
+  },
+  "author": "KAZUKI",
+  "devDependencies": {
+    "electron": "^12.0.0"
+  }
+}

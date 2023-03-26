@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "",
+  "navigationStyle": "default",
+  "enablePullDownRefresh": false,
+  "disableScroll": false,
+
+  "usingComponents": {
+    "my-temp": "../../components/temp/index"
+  }
+}
