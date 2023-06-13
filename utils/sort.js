@@ -3,8 +3,39 @@ function swap(arr, index1, index2) {
   [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
 }
 
+/** 查找函数, 二分法 */
+function searchBinary(arr, end, value) {
+  let min = 0;
+  let max = end;
+
+  while (min <= max) {
+    let mid = Math.floor((min + max) / 2);
+
+    if (arr[mid] <= value) {
+      min = mid + 1;
+    } else {
+      max = mid - 1;
+    }
+  }
+
+  return min;
+}
+
 /** 冒泡排序 */
 function bubble(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
+      }
+    }
+  }
+
+  return arr;
+}
+
+/** 冒泡排序, 利用索引优化 */
+function bubbleWI(arr) {
   let i = arr.length - 1;
 
   while (i > 0) {
@@ -54,8 +85,91 @@ function bubbleFAR(arr) {
   return arr;
 }
 
+/** 插入排序 */
+function insertion(arr) {
+  for (let i = 1, len = arr.length; i < len; i++) {
+    let temp = arr[i];
+    let preIndex = i - 1;
+
+    while (arr[preIndex] > temp) {
+      arr[preIndex + 1] = arr[preIndex];
+      preIndex -= 1;
+    }
+    arr[preIndex + 1] = temp;
+  }
+
+  return arr;
+}
+
+/** 插入排序, 利用二分法 */
+function insertionWB(arr) {
+  for (let i = 1, len = arr.length; i < len; i++) {
+    let temp = arr[i];
+    let insertIndex = searchBinary(arr, i - 1, arr[i]);
+
+    for (let preIndex = i - 1; preIndex >= insertIndex; preIndex--) {
+      arr[preIndex + 1] = arr[preIndex];
+    }
+
+    arr[insertIndex] = temp;
+  }
+
+  return arr;
+}
+
+/** 希尔排序 */
+function shell(arr) {
+  let len = arr.length;
+  let gap = Math.floor(len / 2);
+
+  while (gap > 0) {
+    for (let i = gap; i < len; i++) {
+      let temp = arr[i];
+      let preIndex = i - gap;
+
+      while (arr[preIndex] > temp) {
+        arr[preIndex + gap] = arr[preIndex];
+        preIndex -= gap;
+      }
+      arr[preIndex + gap] = temp;
+    }
+
+    gap = Math.floor(gap / 2);
+  }
+
+  return arr;
+}
+
+/** 归并排序 */
+function concat(arr) {
+  let len = arr.length;
+  if (len < 2) return arr;
+
+  let mid = Math.floor(len / 2);
+
+  let left = arr.slice(0, mid);
+  let right = arr.slice(mid);
+
+  let leftConcat = concat(left);
+  let rightConcat = concat(right);
+
+  let result = [];
+  while (leftConcat.length > 0 && rightConcat.length > 0) {
+    /* 获取两边里小的那个元素 */
+    let min =
+      leftConcat[0] <= rightConcat[0]
+        ? leftConcat.shift()
+        : rightConcat.shift();
+
+    result.push(min);
+  }
+
+  /* 合并剩余元素 */
+  return result.concat(leftConcat, rightConcat);
+}
+
 /** 快速排序 */
-let quick = (arr, isDesc, left = 0, right = arr.length - 1) => {
+function quick(arr, isDesc, left = 0, right = arr.length - 1) {
   if (left < right) {
     /** 基准点元素 */
     let pivotItem = arr[left];
@@ -87,10 +201,10 @@ let quick = (arr, isDesc, left = 0, right = arr.length - 1) => {
   }
 
   return arr;
-};
+}
 
 /** 快速排序, 无副作用 */
-let quickNoEff = (arr, isDesc) => {
+function quickNE(arr, isDesc) {
   let len = arr.length;
   if (len < 2) return arr;
 
@@ -145,18 +259,25 @@ let quickNoEff = (arr, isDesc) => {
   };
 
   return [...sideArr('left'), pivotItem, ...sideArr('right')];
-};
+}
 
-export default {
-  bubble,
-  bubbleFAR,
-};
+// export default {
+//   bubble,
+//   bubbleWI,
+//   bubbleFAR,
+
+//   insertion,
+
+//   quick,
+//   quickNE,
+// };
 
 /* test-s */
 
 // let arr = Array.from({ length: 100 }, () => Math.floor(Math.random() * 100));
 
-// console.log(bubble(arr));
-// console.log(bubbleSort3(arr));
+// console.log(bubbleWI(arr));
+// console.log(bubbleFAR(arr));
+// console.log(concat(arr));
 
 /* test-e */
