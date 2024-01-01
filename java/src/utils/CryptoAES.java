@@ -4,8 +4,8 @@ import java.util.Base64.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
-/** AES/CBC/PKCS5Padding加密模式 */
-public class Crypto {
+/** 对称加密算法, AES/CBC/PKCS5Padding加密模式 */
+public class CryptoAES {
 
   // public static void main(String[] args) throws Exception {
   //   // 明文:
@@ -38,15 +38,15 @@ public class Crypto {
     IvParameterSpec ivps = new IvParameterSpec(iv);
     cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivps);
 
-    byte[] plaintext = message.getBytes("UTF-8");
-    byte[] data = cipher.doFinal(plaintext);
+    byte[] plainText = message.getBytes("UTF-8");
+    byte[] data = cipher.doFinal(plainText);
 
     // IV不需要保密，把IV和密文一起返回:
-    byte[] ciphertext = join(iv, data);
+    byte[] cipherText = join(iv, data);
 
     // 编码
     Encoder encoder = Base64.getEncoder();
-    String base64 = encoder.encodeToString(ciphertext);
+    String base64 = encoder.encodeToString(cipherText);
     return base64;
   }
 
@@ -58,13 +58,13 @@ public class Crypto {
 
     // 解码
     Decoder decoder = Base64.getDecoder();
-    byte[] ciphertext = decoder.decode(base64);
+    byte[] cipherText = decoder.decode(base64);
 
     // 把input分割成IV和密文:
     byte[] iv = new byte[16];
-    byte[] data = new byte[ciphertext.length - 16];
-    System.arraycopy(ciphertext, 0, iv, 0, 16);
-    System.arraycopy(ciphertext, 16, data, 0, data.length);
+    byte[] data = new byte[cipherText.length - 16];
+    System.arraycopy(cipherText, 0, iv, 0, 16);
+    System.arraycopy(cipherText, 16, data, 0, data.length);
 
     // 解密:
     Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -72,9 +72,9 @@ public class Crypto {
     IvParameterSpec ivps = new IvParameterSpec(iv);
     cipher.init(Cipher.DECRYPT_MODE, keySpec, ivps);
 
-    byte[] plaintext = cipher.doFinal(data);
+    byte[] plainText = cipher.doFinal(data);
 
-    String decrypted = new String(plaintext, "UTF-8");
+    String decrypted = new String(plainText, "UTF-8");
     return decrypted;
   }
 
