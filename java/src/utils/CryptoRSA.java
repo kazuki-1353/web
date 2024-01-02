@@ -1,38 +1,28 @@
-// import java.io.*;
-// import java.nio.file.*;
-// import java.text.*;
-// import java.time.*;
-// import java.time.format.*;
-// import java.time.temporal.*;
 import java.math.BigInteger;
 import java.security.*;
-import java.security.spec.*;
-import java.util.*;
-import java.util.Base64;
 import javax.crypto.*;
-import javax.crypto.spec.*;
 
 /** 非对称加密算法 */
 public class CryptoRSA {
 
-  // public static void main(String[] args) throws Exception {
-  //   // 明文:
-  //   byte[] plainText = "Hello, encrypt use RSA".getBytes("UTF-8");
+  public static void main(String[] args) throws Exception {
+    // 明文:
+    byte[] plainText = "Hello, encrypt use RSA".getBytes("UTF-8");
 
-  //   // 创建公钥／私钥对:
-  //   CryptoRSA alice = new CryptoRSA("Alice");
+    // 创建公钥／私钥对:
+    CryptoRSA alice = new CryptoRSA("Alice");
 
-  //   System.out.printf("public key: %s\n\n", alice.publicKeyString);
-  //   System.out.printf("private key: %s\n\n", alice.privateKeyString);
+    System.out.printf("public key: %s\n\n", alice.publicKeyString);
+    System.out.printf("private key: %s\n\n", alice.privateKeyString);
 
-  //   // 用Alice的公钥加密:
-  //   byte[] cipherText = alice.encrypt(plainText);
-  //   System.out.printf("cipher text: %x\n\n", new BigInteger(1, cipherText));
+    // 用Alice的公钥加密:
+    byte[] cipherText = alice.encrypt(plainText);
+    System.out.printf("cipher text: %x\n\n", new BigInteger(1, cipherText));
 
-  //   // 用Alice的私钥解密:
-  //   byte[] decrypted = alice.decrypt(cipherText);
-  //   System.out.printf("plain text: %s\n\n", new String(decrypted, "UTF-8"));
-  // }
+    // 用Alice的私钥解密:
+    byte[] decrypted = alice.decrypt(cipherText);
+    System.out.printf("plain text: %s\n\n", new String(decrypted, "UTF-8"));
+  }
 
   public String name;
 
