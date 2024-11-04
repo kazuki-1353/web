@@ -1,16 +1,146 @@
-let FilePlus = class {
-  constructor(_path = process.argv.slice(2)) {
-    this._getPath(_path);
-    return this.getStat().then(() => this);
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
+
+let BackupPath = '__backup';
+
+let colors = {
+  备份文件: '\x1B[42m',
+  备份目录: '\x1B[44m',
+  备份总数: '\x1B[46m',
+
+  还原目录: '\x1B[44m',
+  还原文件: '\x1B[42m',
+  还原总数: '\x1B[46m',
+};
+
+/**控制台 */
+let log = (title: keyof typeof colors, msg = '') => {
+  let start = colors[title] || '';
+  let end = '\x1B[0m';
+  let _title = `${start}${title}${end}`;
+  console.log(`${_title}: ${msg}`);
+};
+
+/**命令行 */
+let question = (str = '') => {
+  return new Promise<string>((resolve) => {
+    let rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+    rl.question(str, (answer) => {
+      rl.close();
+      resolve(answer);
+    });
+  });
+};
+
+/**忽略文件 */
+let isIgnore = (
+  src: string,
+  opt: {
+    exclude?: string | Array<string>;
+    include?: string | Array<string>;
+  } = {},
+) => {
+  if (src === __filename) return true;
+
+  let { exclude, include } = opt;
+
+  if (exclude) {
+    if (Array.isArray(exclude)) {
+      return exclude.some((i) => src.match(i));
+    } else {
+      return src.match(exclude);
+    }
   }
 
-  DIR;
-  FILE;
-  FILE_BASE_NAME;
-  FILE_EXT_NAME;
+  if (include) {
+    if (Array.isArray(include)) {
+      return !include.some((i) => src.match(i));
+    } else {
+      return !src.match(include);
+    }
+  }
+};
+
+/**读取目录 */
+let readDir = (
+  dir: string,
+  base = __dirname,
+  opt?: Parameters<typeof isIgnore>[1],
+) => {
+  return new Promise<
+    {
+      dir: string;
+      relative: string;
+      name: string;
+      src: string;
+    }[]
+  >((resolve, reject) => {
+    fs.readdir(dir, (err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        let files = res.reduce<
+          {
+            dir: string;
+            relative: string;
+            name: string;
+            src: string;
+          }[]
+        >((p, i) => {
+          let file = {
+            dir: base,
+            relative: path.relative(base, dir),
+            name: i,
+            src: path.join(dir, i),
+          };
+
+          if (isIgnore(file.src, opt)) {
+            return p;
+          } else {
+            return [...p, file];
+          }
+        }, []);
+
+        resolve(files);
+      }
+    });
+  });
+};
+
+/**创建目录 */
+let makeDir = (dir: string, base = __dirname) => {
+  return new Promise((resolve) => {
+    let isAbsolute = path.isAbsolute(dir);
+    let src = isAbsolute ? dir : path.join(base, dir);
+    fs.access(src, (err) => {
+      if (err) {
+        let subName = path.dirname(dir);
+        makeDir(subName).then(() => {
+          fs.mkdir(src, () => resolve(src));
+        });
+      } else {
+        resolve(src);
+      }
+    });
+  });
+};
+
+let FilePlus = class {
+  constructor(_path: string | string[] = process.argv.slice(2)) {
+    this._getPath(_path);
+  }
+
+  DIR = '';
+  FILE = '';
+  FILE_BASE_NAME = '';
+  FILE_EXT_NAME = '';
 
   /**获取路径 */
-  _getPath(_path) {
+  _getPath(_path: string | Array<string>) {
     if (!_path) return console.error('请输入文件路径');
 
     let str = _path instanceof Array ? _path.join(' ') : _path; //支持路径有空格
@@ -27,7 +157,12 @@ let FilePlus = class {
     this.DIR = path.dirname(this.FILE);
   }
 
-  _stats;
+  async create() {
+    await this.getStat();
+    return this;
+  }
+
+  _stats?: fs.Stats;
 
   /**读取文件 */
   getStat() {
@@ -53,7 +188,10 @@ let FilePlus = class {
   }
 
   /**读取文本 */
-  readline({ onLine, onClose }) {
+  readline(opt: {
+    onLine: (line: string, lineNumber: number, isDone: boolean) => void;
+    onClose?: (lineNumber: number) => void;
+  }) {
     let lineNumber = 0;
 
     return new Promise((resolve) => {
@@ -63,26 +201,26 @@ let FilePlus = class {
       });
 
       rl.on('line', (line) => {
-        onLine(line, ++lineNumber, false);
+        opt.onLine(line, ++lineNumber, false);
       });
 
       rl.on('close', () => {
-        onLine('', ++lineNumber, true); // 手动调用, 因为.on('line')无法获取最后一个空行
-        onClose?.(lineNumber);
+        opt.onLine('', ++lineNumber, true); // 手动调用, 因为.on('line')无法获取最后一个空行
+        opt.onClose?.(lineNumber);
         resolve(lineNumber);
       });
     });
   }
 
   /**重命名文件/剪切文件/复制文件 */
-  rename(target, isCopy) {
+  rename(target: string, isCopy?: boolean): Promise<string> {
     let sourceParse = path.parse(this.FILE);
-    let sourceDir = sourceParse.ext ? sourceParse.dir : source;
+    let sourceDir = sourceParse.ext ? sourceParse.dir : this.FILE;
 
     let targetParse = path.parse(target);
     let targetDir = targetParse.ext ? targetParse.dir : target;
 
-    let src;
+    let src: string;
     let isAbsolute = path.isAbsolute(target);
     if (isAbsolute) {
       src = targetDir;
@@ -148,15 +286,15 @@ let FilePlus = class {
 
   /**还原文件 */
   restore() {
-    let sourcePath;
+    let sourcePath: string;
 
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       this.getBackupDIR().then((dirs) => {
         if (dirs.length) {
           console.log();
           question('请输入还原目录编号:')
             .then((answer) => {
-              let dir = dirs[answer];
+              let dir = dirs[Number(answer)];
               if (dir) {
                 sourcePath = dir.path;
                 log('还原目录', sourcePath);
@@ -171,12 +309,12 @@ let FilePlus = class {
             /* 获取备份文件 */
             .then((sourcePath) => {
               let src = path.join(sourcePath, this.FILE_BASE_NAME);
-              return new FilePlus(src);
+              return new FilePlus(src).create();
             })
 
             /* 还原文件 */
             .then((filePlus) => filePlus.rename(this.FILE, true))
-            .then(resolve);
+            .then(() => resolve());
         } else {
           console.log('暂无还原目录');
           resolve();
@@ -186,7 +324,7 @@ let FilePlus = class {
   }
 
   /**修改文件 */
-  modify(fun, isBackup) {
+  modify(fun: (ws: fs.WriteStream) => void, isBackup: boolean) {
     /**修改时间 */
     let time = Date.now();
 
