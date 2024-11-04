@@ -130,8 +130,8 @@ let makeDir = (dir: string, base = __dirname) => {
 };
 
 let FilePlus = class {
-  constructor(_path: string | string[] = process.argv.slice(2)) {
-    this._getPath(_path);
+  constructor(arg: string | string[] = process.argv.slice(2)) {
+    this._getPath(arg);
   }
 
   DIR = '';
@@ -140,20 +140,21 @@ let FilePlus = class {
   FILE_EXT_NAME = '';
 
   /**获取路径 */
-  _getPath(_path: string | Array<string>) {
-    if (!_path) return console.error('请输入文件路径');
+  _getPath(arg: string | Array<string>) {
+    if (!arg) return console.error('请输入文件路径');
 
-    let str = _path instanceof Array ? _path.join(' ') : _path; //支持路径有空格
+    let _path = arg instanceof Array ? arg.join(' ') : arg; //支持路径有空格
+    let cwd = process.cwd();
 
     // 判断是否为绝对路径
-    if (path.isAbsolute(str)) {
-      this.FILE = str;
+    if (path.isAbsolute(_path)) {
+      this.FILE = _path;
     } else {
-      this.FILE = path.join(__dirname, str);
+      this.FILE = path.join(cwd, _path);
     }
 
-    this.FILE_BASE_NAME = path.basename(str);
-    this.FILE_EXT_NAME = path.extname(str);
+    this.FILE_BASE_NAME = path.basename(_path);
+    this.FILE_EXT_NAME = path.extname(_path);
     this.DIR = path.dirname(this.FILE);
   }
 
