@@ -131,7 +131,11 @@ let makeDir = (dir: string, base = __dirname) => {
 
 let FilePlus = class {
   constructor(arg: string | string[] = process.argv.slice(2)) {
-    this._getPath(arg);
+    if (arg) {
+      this._getPath(arg);
+    } else {
+      console.error('请输入文件路径');
+    }
   }
 
   DIR = '';
@@ -140,9 +144,7 @@ let FilePlus = class {
   FILE_EXT_NAME = '';
 
   /**获取路径 */
-  _getPath(arg: string | Array<string>) {
-    if (!arg) return console.error('请输入文件路径');
-
+  _getPath(arg: string | string[]) {
     let _path = arg instanceof Array ? arg.join(' ') : arg; //支持路径有空格
     let cwd = process.cwd();
 
