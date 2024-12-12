@@ -46,7 +46,7 @@ export default (
       return prom.then((csv) => {
         let csvString = csv;
         csvString = csvString.replace(/\r/g, ''); // Remove the \r of Windows
-        csvString = csvString.replace(/,\n$/, ''); // Remove the last empty line
+        csvString = csvString.replace(/\n$/, ''); // Remove the last empty line
 
         return csvString;
       });
