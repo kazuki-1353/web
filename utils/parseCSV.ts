@@ -2,17 +2,21 @@ export default (
   file: File,
   options?: {
     hasHeader?: boolean;
+    hasBlankLines?: boolean;
+    hasSpaceSell?: boolean;
   },
 ): {
   toString: () => Promise<string>;
 
-  toArray: () => Promise<{
+  toArray: (opt?: { distinct?: boolean }) => Promise<{
     headers: string[];
     rows: string[][];
   }>;
 
   /** [ { [header]: cell } ] */
-  toObjectArray: () => Promise<Record<string, string>[]>;
+  toObjectArray: (opt?: {
+    distinct?: boolean;
+  }) => Promise<Record<string, string>[]>;
 
   /** { [row[0]]: { [header]: cell } } */
   toObject: () => Promise<Record<string, Record<string, string>>>;
@@ -20,7 +24,11 @@ export default (
   /** { [row[0]]: row[1...] } */
   toObjectWithoutHeader: () => Promise<Record<string, string[]>>;
 } => {
-  const { hasHeader = true } = options || {};
+  const {
+    hasHeader = true,
+    hasBlankLines = true,
+    hasSpaceSell = true,
+  } = options || {};
 
   const prom = new Promise<string>((resolve, reject) => {
     if (!file) return reject(new Error('Missing file'));
@@ -46,43 +54,53 @@ export default (
       return prom.then((csv) => {
         let csvString = csv;
         csvString = csvString.replace(/\r/g, ''); // Remove the \r of Windows
-        csvString = csvString.replace(/\n$/, ''); // Remove the last empty line
 
+        // eslint-disable-next-line no-irregular-whitespace
+        if (!hasSpaceSell) csvString = csvString.replace(/,[ 　]+/g, ','); // Clear all space sell
+        if (!hasBlankLines) csvString = csvString.replace(/\n,*\n/g, '\n'); // Remove all blank line
+
+        csvString = csvString.replace(/\n$/, ''); // Remove the last blank line
         return csvString;
       });
     },
 
-    toArray(): Promise<{
+    toArray(opt): Promise<{
       headers: string[];
       rows: string[][];
     }> {
+      const { distinct = false } = opt || {};
+
       return this.toString().then((csvString) => {
-        const lines = csvString.split('\n');
+        let lines = csvString.split('\n');
+
+        if (distinct) {
+          lines = lines.filter(
+            (item, index, source) => index === source.indexOf(item),
+          );
+        }
+
+        const line2array = (line: string): string[] => {
+          const _line = line.replace(/,$/, ''); // Remove the last blank cell
+          const arr = _line.split(',');
+          return arr;
+        };
 
         if (hasHeader) {
           return {
-            headers: lines[0]
-              .replace(/,$/, '') // Remove the last empty cell
-              .split(',')
-              .filter((i) => i !== ''), // Filter empty Header
-
-            rows: lines.slice(1).map((line) =>
-              line
-                .replace(/,$/, '') // Remove the last empty cell
-                .split(','),
-            ),
+            headers: line2array(lines[0]).filter((i) => i !== ''), // Filter blank header
+            rows: lines.slice(1).map(line2array),
           };
         } else {
           return {
             headers: [],
-            rows: lines.map((line) => line.replace(/,$/, '').split(',')),
+            rows: lines.map(line2array),
           };
         }
       });
     },
 
-    toObjectArray(): Promise<Record<string, string>[]> {
-      return this.toArray().then(({ headers, rows }) => {
+    toObjectArray(opt): Promise<Record<string, string>[]> {
+      return this.toArray(opt).then(({ headers, rows }) => {
         return rows.map((row) => {
           const arr = headers.map((header, index) => {
             const cell = row[index];
