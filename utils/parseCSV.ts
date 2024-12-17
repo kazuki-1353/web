@@ -79,7 +79,9 @@ export default (
           );
         }
 
-        const line2array = (line: string): string[] => {
+        const line2array = (line?: string): string[] => {
+          if (!line) return [];
+
           const _line = line.replace(/,$/, ''); // Remove the last blank cell
           const arr = _line.split(',');
           return arr;
