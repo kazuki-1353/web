@@ -58,16 +58,26 @@ let findPath = (
   return null;
 };
 
-let findValue = (data: Record<string, any>, paths: Array<string | number>) => {
-  if (!paths.length) return undefined;
+let findValue = (
+  source: Record<string, any>,
+  paths: string | Array<string | number>,
+) => {
+  let _paths: Array<string | number>;
 
-  let value = paths.reduce((p, path) => {
-    if (path in p) {
-      return p[path];
+  if (Array.isArray(paths)) {
+    if (!paths.length) return undefined;
+    _paths = paths;
+  } else {
+    _paths = path.split('.');
+  }
+
+  let value = _paths.reduce((target, path) => {
+    if (path in target) {
+      return target[path];
     } else {
       return undefined;
     }
-  }, data);
+  }, source);
   return value;
 };
 
