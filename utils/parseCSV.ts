@@ -4,6 +4,7 @@ export default (
     hasHeader?: boolean;
     hasBlankLines?: boolean;
     hasSpaceSell?: boolean;
+    hasQuotes?: boolean;
   },
 ): {
   toString: () => Promise<string>;
@@ -28,13 +29,16 @@ export default (
     hasHeader = true,
     hasBlankLines = true,
     hasSpaceSell = true,
+    hasQuotes = true,
   } = options || {};
 
   const prom = new Promise<string>((resolve, reject) => {
-    if (!file) return reject(new Error('Missing file'));
-    if (file.type !== 'text/csv')
+    if (!file) {
+      return reject(new Error('Missing file'));
+    }
+    if (file.type !== 'text/csv') {
       return reject(new Error('The file is not a CSV file'));
-
+    }
     const reader = new FileReader();
 
     reader.addEventListener('load', (e) => {
@@ -56,8 +60,15 @@ export default (
         csvString = csvString.replace(/\r/g, ''); // Remove the \r of Windows
 
         // eslint-disable-next-line no-irregular-whitespace
-        if (!hasSpaceSell) csvString = csvString.replace(/,[ 　]+/g, ','); // Clear all space sell
-        if (!hasBlankLines) csvString = csvString.replace(/\n,*\n/g, '\n'); // Remove all blank line
+        if (!hasSpaceSell) {
+          csvString = csvString.replace(/,[ 　]+/g, ','); // Clear all space sell
+        }
+        if (!hasBlankLines) {
+          csvString = csvString.replace(/\n,*\n/g, '\n'); // Remove all blank line
+        }
+        if (!hasQuotes) {
+          csvString = csvString.replace(/"""(.+)"""/g, '$1'); // Remove all quotes
+        }
 
         csvString = csvString.replace(/\n$/, ''); // Remove the last blank line
         return csvString;
@@ -80,7 +91,9 @@ export default (
         }
 
         const line2array = (line?: string): string[] => {
-          if (!line) return [];
+          if (!line) {
+            return [];
+          }
 
           const _line = line.replace(/,$/, ''); // Remove the last blank cell
           const arr = _line.split(',');
