@@ -114,7 +114,7 @@ export const JP_FULL_REG = new RegExp(`[${JP_FULL_KEYS.join('')}]`, 'g');
 export const JPfull2half = (str: string): string => {
   return str.replace(JP_FULL_REG, (match) => {
     if (hasKey(JP_FULL_MAP, match)) {
-      return JP_FULL_MAP[match];
+      return JP_FULL_MAP[match] ?? match;
     } else {
       return match;
     }
@@ -128,8 +128,8 @@ export const JP_HALF_KEYS = Object.keys(JP_HALF_MAP);
 export const JP_HALF_REG = new RegExp(`[${JP_HALF_KEYS.join('')}]`, 'g');
 export const JPhalf2full = (str: string): string => {
   return str.replace(JP_HALF_REG, (match) => {
-    if (match in JP_HALF_MAP) {
-      return JP_HALF_MAP[match];
+    if (hasKey(JP_HALF_MAP, match)) {
+      return JP_HALF_MAP[match] ?? match;
     } else {
       return match;
     }
