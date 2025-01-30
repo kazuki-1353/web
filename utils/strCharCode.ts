@@ -1,3 +1,8 @@
+export const hasKey = <T extends object>(
+  obj: T,
+  key: string | number | symbol,
+): key is keyof T => key in obj;
+
 export const convert =
   (reg: RegExp, offset: number) =>
   (str: string): string => {
@@ -17,7 +22,7 @@ export const half2full = convert(
   +65248,
 );
 
-export const JP_FULL_MAP: Record<string, string> = {
+export const JP_FULL_MAP = {
   ァ: 'ｧ',
   ィ: 'ｨ',
   ゥ: 'ｩ',
@@ -108,7 +113,7 @@ export const JP_FULL_KEYS = Object.keys(JP_FULL_MAP);
 export const JP_FULL_REG = new RegExp(`[${JP_FULL_KEYS.join('')}]`, 'g');
 export const JPfull2half = (str: string): string => {
   return str.replace(JP_FULL_REG, (match) => {
-    if (match in JP_FULL_MAP) {
+    if (hasKey(JP_FULL_MAP, match)) {
       return JP_FULL_MAP[match];
     } else {
       return match;
