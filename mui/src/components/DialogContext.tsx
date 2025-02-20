@@ -23,7 +23,7 @@
 import {
   createContext,
   memo,
-  MouseEventHandler,
+  MouseEvent,
   ReactNode,
   useCallback,
   useContext,
@@ -46,13 +46,12 @@ type TMessage = {
   confirmColor?: 'primary' | 'secondary';
   confirmDisabled?: boolean;
 };
+type TEvent = {
+  onConfirm?(e: MouseEvent<HTMLButtonElement>): void | Promise<void>;
+};
 type TContext = {
   isOpen: boolean;
-  open(
-    opt: TMessage & {
-      onConfirm?: (cb: MouseEventHandler) => void;
-    }
-  ): void;
+  open(opt: TMessage & TEvent): void;
   setOpen(isOpen: boolean): void;
   setMessage(msg: TMessage): void;
 };
@@ -67,23 +66,24 @@ export const DialogProvider = memo((props: { children: ReactNode }) => {
   const { children } = props;
 
   const [isOpen, setOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
   const [message, setMessage] = useState<TMessage>({});
-  const [handleConfirm, setConfirm] = useState<MouseEventHandler | null>(null);
+  const [handleConfirm, setConfirm] = useState<TEvent['onConfirm'] | null>(
+    null
+  );
 
   const open = useCallback<TContext['open']>((opt) => {
     const { onConfirm, ...msg } = opt;
+    setOpen(true);
     setMessage(msg);
     setConfirm(() => onConfirm);
-    setTimeout(() => {
-      setOpen(true);
-    });
   }, []);
   const close = useCallback(() => {
+    setLoading(false);
     setOpen(false);
-    setTimeout(() => {
-      setMessage({});
-      setConfirm(null);
-    });
+    setMessage({});
+    setConfirm(null);
   }, []);
 
   return (
@@ -113,7 +113,16 @@ export const DialogProvider = memo((props: { children: ReactNode }) => {
           <Button
             disabled={message.confirmDisabled}
             color={message.confirmColor}
-            onClick={handleConfirm || undefined}
+            loading={isLoading}
+            onClick={(e) => {
+              setLoading(true);
+              const res = handleConfirm?.(e);
+              if (res instanceof Promise) {
+                res.then(close);
+              } else {
+                close();
+              }
+            }}
           >
             {message.confirmText ?? 'Agree'}
           </Button>
