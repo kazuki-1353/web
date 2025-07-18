@@ -40,6 +40,7 @@ const FilePlus = class {
     return Promise.resolve(hexString);
   }
 
+  /** 转换为String */
   fileToString() {
     if (!this.file) return Promise.resolve('');
 
@@ -48,6 +49,29 @@ const FilePlus = class {
       .catch((error) => {
         console.error('文件读取失败:', error);
       });
+  }
+
+  /** 转换为FormData */
+  fileToFormData(chunkSize = 1024 * 1024) {
+    const { size } = this.file;
+
+    // 计算切片数量和每个切片的大小
+    const totalChunks = Math.ceil(size / chunkSize);
+
+    // 创建FormData对象，并添加文件信息
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('totalChunks', totalChunks);
+
+    // 循环上传切片
+    for (let chunkNumber = 0; chunkNumber < totalChunks; chunkNumber++) {
+      const start = chunkNumber * chunkSize;
+      const end = Math.min(start + chunkSize, size);
+      const chunk = selectedFile.slice(start, end);
+      formData.append(`chunk-${chunkNumber}`, chunk, selectedFile.name);
+    }
+
+    return formData;
   }
 };
 
