@@ -2,20 +2,15 @@
   "update.mode": "manual",
   "update.showReleaseNotes": false,
   "update.enableWindowsBackgroundUpdates": false,
-  "telemetry.telemetryLevel": "off",
   "extensions.autoUpdate": false,
-  "window.menuBarVisibility": "toggle",
+  "extensions.autoCheckUpdates": false,
+  "telemetry.telemetryLevel": "off",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.sideBar.location": "right",
   "workbench.colorTheme": "Solarized Light",
-  "workbench.iconTheme": "vscode-icons",
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.includeLanguages": { "javascript": "javascriptreact", "wxml": "html" },
-  "explorer.confirmDelete": false,
   "security.workspace.trust.untrustedFiles": "open",
   "files.eol": "\n",
   "files.associations": {
-    "*.wxml": "wxml",
     "*.wxss": "css",
     "*.wxs": "javascript",
     "*.cjson": "jsonc",
@@ -23,42 +18,38 @@
   },
   "files.exclude": { "**/.ice": true },
   "search.exclude": {
+    "**/yarn.lock": true,
+    "**/.yaml": true,
     "**/.umi/**": true,
-    "**/dist": true,
-    "**/mock.*": true,
+    "**/.next/**": true,
     "**/mock/**": true,
-    "**/yarn.lock": true
+    "**/mock.*": true,
+    "**/*.svg": true,
+    "**/dist": true
   },
-  "http.proxyAuthorization": null,
-  "npm.packageManager": "yarn",
   "editor.wordWrap": "on",
   "editor.renderWhitespace": "all",
   "editor.tabSize": 2,
   "editor.fontSize": 16,
-  "editor.multiCursorModifier": "ctrlCmd",
-  "editor.quickSuggestions": {
-    "other": true,
-    "comments": true,
-    "strings": true
-  },
-  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
-  "eslint.format.enable": true,
-  "eslint.packageManager": "yarn",
+  "editor.parameterHints.enabled": false,
+  "editor.suggestSelection": "recentlyUsed",
+  "vsintellicode.modify.editor.suggestSelection": "disabled",
+  "diffEditor.ignoreTrimWhitespace": true,
+  "emmet.includeLanguages": { "javascript": "javascriptreact", "wxml": "html" },
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": true,
   "prettier.trailingComma": "all",
   "prettier.arrowParens": "always",
   "prettier.endOfLine": "lf",
-  "git.confirmSync": false,
-  "git.ignoreMissingGitWarning": true,
-  "git.enableSmartCommit": true,
-  "gitlens.advanced.messages": { "suppressShowKeyBindingsNotice": true },
+  "eslint.format.enable": true,
   "liveServer.settings.donotShowInfoMsg": true,
   "liveServer.settings.donotVerifyTags": true,
   "code-runner.runInTerminal": true,
-  "java.configuration.updateBuildConfiguration": "automatic",
-  "java.compile.nullAnalysis.mode": "automatic",
   "java.jdt.ls.java.home": "D:\\Program Files\\Java\\jdk-20",
+  "java.maven.downloadSources": true,
+  "java.eclipse.downloadSources": true,
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "automatic",
   "java.configuration.maven.globalSettings": "D:\\Program Files\\Java\\apache-maven-3.9.6\\conf\\settings.xml",
   "java.configuration.maven.userSettings": "D:\\Program Files\\Java\\apache-maven-3.9.6\\conf\\settings.xml",
   "maven.executable.path": "D:\\Program Files\\Java\\apache-maven-3.9.6\\bin\\mvn",
@@ -70,8 +61,6 @@
       "startOnActivation": true
     }
   ],
-  "redhat.telemetry.enabled": false,
-  "typescript.check.npmIsInstalled": false,
   "vetur.format.defaultFormatterOptions": {
     "prettier": { "singleQuote": true }
   },
@@ -80,12 +69,9 @@
   "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[java]": { "editor.defaultFormatter": "mwpb.java-prettier-formatter" },
-  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[javascriptreact]": {
+  "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
 }
