@@ -19,7 +19,6 @@
     "command": "editor.unfoldAll",
     "when": "editorTextFocus && foldingEnabled"
   },
-  { "key": "ctrl+alt+k", "command": "-code-runner.runCustomCommand" },
   { "key": "ctrl+shift+alt+n", "command": "workbench.action.terminal.kill" },
   { "key": "ctrl+f9", "command": "editor.action.sortLinesAscending" },
   { "key": "ctrl+shift+f9", "command": "editor.action.sortLinesDescending" },
@@ -62,5 +61,10 @@
   { "key": "alt+s", "command": "editor.action.transformToSnakecase" },
   { "key": "alt+j", "command": "editor.action.joinLines" },
   { "key": "alt+\\", "command": "editor.emmet.action.nextEditPoint" },
-  { "key": "shift+alt+\\", "command": "editor.emmet.action.prevEditPoint" }
+  { "key": "shift+alt+\\", "command": "editor.emmet.action.prevEditPoint" },
+  {
+    "key": "ctrl+enter",
+    "command": "-github.copilot.generate",
+    "when": "editorTextFocus && github.copilot.activated && !commentEditorFocused && !inInteractiveInput && !interactiveEditorFocused"
+  }
 ]

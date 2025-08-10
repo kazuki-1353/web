@@ -9,12 +9,14 @@
   "workbench.sideBar.location": "right",
   "workbench.colorTheme": "Solarized Light",
   "security.workspace.trust.untrustedFiles": "open",
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
   "files.eol": "\n",
   "files.associations": {
+    "*.svg": "html",
     "*.wxss": "css",
     "*.wxs": "javascript",
-    "*.cjson": "jsonc",
-    "*.svg": "html"
+    "*.cjson": "jsonc"
   },
   "files.exclude": { "**/.ice": true },
   "search.exclude": {
@@ -27,25 +29,45 @@
     "**/*.svg": true,
     "**/dist": true
   },
-  "editor.wordWrap": "on",
-  "editor.renderWhitespace": "all",
   "editor.tabSize": 2,
   "editor.fontSize": 16,
+  "editor.wordWrap": "on",
+  "editor.renderWhitespace": "all",
+  "editor.suggestSelection": "recentlyUsedByPrefix",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.parameterHints.enabled": false,
-  "editor.suggestSelection": "recentlyUsed",
-  "vsintellicode.modify.editor.suggestSelection": "disabled",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit",
+    "source.sortImports": "explicit"
+  },
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false,
   "diffEditor.ignoreTrimWhitespace": true,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.experimental.showMoves": true,
+  "diffEditor.hideUnchangedRegions.enabled": true,
   "emmet.includeLanguages": { "javascript": "javascriptreact", "wxml": "html" },
-  "prettier.singleQuote": true,
-  "prettier.jsxSingleQuote": true,
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
   "prettier.trailingComma": "all",
   "prettier.arrowParens": "always",
   "prettier.endOfLine": "lf",
-  "eslint.format.enable": true,
-  "liveServer.settings.donotShowInfoMsg": true,
-  "liveServer.settings.donotVerifyTags": true,
-  "code-runner.runInTerminal": true,
-  "java.jdt.ls.java.home": "D:\\Program Files\\Java\\jdk-20",
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "vsintellicode.modify.editor.suggestSelection": "disabled",
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.importStringConfiguration.trailingComma": "multiLine",
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 80,
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.14.7-hotspot",
   "java.maven.downloadSources": true,
   "java.eclipse.downloadSources": true,
   "java.compile.nullAnalysis.mode": "automatic",
@@ -53,7 +75,7 @@
   "java.configuration.maven.globalSettings": "D:\\Program Files\\Java\\apache-maven-3.9.6\\conf\\settings.xml",
   "java.configuration.maven.userSettings": "D:\\Program Files\\Java\\apache-maven-3.9.6\\conf\\settings.xml",
   "maven.executable.path": "D:\\Program Files\\Java\\apache-maven-3.9.6\\bin\\mvn",
-  "rsp-ui.rsp.java.home": "D:\\Program Files\\Java\\jdk-20",
+  "rsp-ui.rsp.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.14.7-hotspot",
   "rsp-ui.enableStartServerOnActivation": [
     {
       "id": "redhat.vscode-community-server-connector",
@@ -65,13 +87,13 @@
     "prettier": { "singleQuote": true }
   },
   "wxmlConfig.format": { "indent_with_tabs": false, "indent_char": " " },
-  "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[java]": { "editor.defaultFormatter": "mwpb.java-prettier-formatter" },
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }
+  "[prisma]": { "editor.defaultFormatter": "Prisma.prisma" },
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.allowForcePush": true,
+  "gitlens.views.repositories.showStashes": true,
+  "gitlens.views.commits.files.layout": "list",
+  "code-runner.runInTerminal": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true
 }
