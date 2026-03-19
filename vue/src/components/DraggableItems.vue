@@ -10,27 +10,25 @@
   -->
 
 <template>
-  <div>
-    <div
-      v-for="(item, index) in items"
-      :key="item.id ?? index"
-      class="draggable-row"
-      :class="{
-        'draggable-row--dragging': dragIndex === index,
-        'draggable-row--over': dropTargetIndex === index
-      }"
-      draggable="true"
-      @dragstart="handleDragStart(index, $event)"
-      @dragover.prevent="handleDragOver(index)"
-      @dragleave="handleDragLeave(index)"
-      @dragend="handleDragEnd"
-      @drop.prevent="handleDrop(index)"
-    >
-      <slot
-        :item="item"
-        :index="index"
-      />
-    </div>
+  <div
+    v-for="(item, index) in items"
+    :key="item[itemKey] ?? index"
+    class="draggable-row"
+    :class="{
+      'draggable-row--dragging': dragIndex === index,
+      'draggable-row--over': dropTargetIndex === index
+    }"
+    draggable="true"
+    @dragstart="handleDragStart(index, $event)"
+    @dragover.prevent="handleDragOver(index)"
+    @dragleave="handleDragLeave(index)"
+    @dragend="handleDragEnd"
+    @drop.prevent="handleDrop(index)"
+  >
+    <slot
+      :item="item"
+      :index="index"
+    />
   </div>
 </template>
 
@@ -38,10 +36,13 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-  /** List of items – each must have at least { id, name } */
   items: {
     type: Array,
     default: () => []
+  },
+  itemKey: {
+    type: String,
+    default: 'id'
   }
 })
 
